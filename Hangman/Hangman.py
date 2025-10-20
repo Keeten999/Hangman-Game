@@ -9,7 +9,6 @@ r = RandomWords()
 while True:
     # Return a single random word
     chosen_word = r.get_random_word()
-    print(chosen_word)
     incorrect_guesses = 0
     max_incorrect_guesses = 6
     guessed_letters = set()
@@ -53,7 +52,7 @@ while True:
         -----
         |   |
         O   |
-      /|\\  |
+       /|\\  |
             |
             |
     ---------
@@ -61,7 +60,7 @@ while True:
         -----
         |   |
         O   |
-      /|\\  |
+       /|\\  |
        /    |
             |
     ---------
@@ -69,8 +68,8 @@ while True:
         -----
         |   |
         O   |
-      /|\\  |
-      / \\  |
+       /|\\  |
+       / \\  |
             |
     ---------
     """]

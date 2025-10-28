@@ -4,11 +4,37 @@
     Purpose: A simple hangman game 
 """
 
-from random_word import RandomWords
-r = RandomWords()
+import os
+import random
+
+# Attempt to load words from a local file so the word list is available
+# to anyone who clones this repository. The file is `words.txt` next to
+# this script (same folder). If the file is missing or empty, fall back
+# to an internal list.
+BASE_DIR = os.path.dirname(__file__)
+WORDS_FILE = os.path.join(BASE_DIR, 'words.txt')
+
+def load_words():
+    try:
+        with open(WORDS_FILE, 'r', encoding='utf-8') as f:
+            words = [line.strip() for line in f if line.strip()]
+            if words:
+                return words
+    except Exception:
+        pass
+
+    # Fallback list (keeps the game runnable without the file)
+    return [
+        'python', 'hangman', 'programming', 'challenge', 'computer',
+        'keyboard', 'function', 'variable', 'condition', 'loop'
+    ]
+
+
+words = load_words()
+
 while True:
-    # Return a single random word
-    chosen_word = r.get_random_word()
+    # Select a single random word from the loaded list
+    chosen_word = random.choice(words).lower()
     incorrect_guesses = 0
     max_incorrect_guesses = 6
     guessed_letters = set()

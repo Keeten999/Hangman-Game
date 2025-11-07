@@ -32,16 +32,19 @@ def load_words():
 
 words = load_words()
 
-while True:
-    # Select a single random word from the loaded list
-    chosen_word = random.choice(words).lower()
-    incorrect_guesses = 0
-    max_incorrect_guesses = 6
-    guessed_letters = set()
 
+def _cli_main():
+    """Original command-line loop. Kept as a function so this module can be
+    imported by a GUI without running the interactive loop automatically."""
 
+    while True:
+        # Select a single random word from the loaded list
+        chosen_word = random.choice(words).lower()
+        incorrect_guesses = 0
+        max_incorrect_guesses = 6
+        guessed_letters = set()
 
-    hangman_drawing = ["""
+        hangman_drawing = ["""
         -----
         |   |
             |
@@ -50,7 +53,7 @@ while True:
             |
     ---------
     """,
-    """
+        """
         -----
         |   |
         O   |
@@ -100,56 +103,59 @@ while True:
     ---------
     """]
 
-    print("--------------------")
-    print("|  HANGMAN GAME!!  |")
-    print("--------------------")
+        print("--------------------")
+        print("|  HANGMAN GAME!!  |")
+        print("--------------------")
 
-    while incorrect_guesses < max_incorrect_guesses:
-        display_word = ""
-        for letter in chosen_word:
-            if letter in guessed_letters:
-                display_word += letter + " "
+        while incorrect_guesses < max_incorrect_guesses:
+            display_word = ""
+            for letter in chosen_word:
+                if letter in guessed_letters:
+                    display_word += letter + " "
+                else:
+                    display_word += "_"
+
+            print(hangman_drawing[incorrect_guesses])
+            print(f"Word: {display_word}")
+            print(f"Guessed Letters: {' '.join(sorted(list(guessed_letters)))}")
+            print(f"Attempts Remaining: {max_incorrect_guesses - incorrect_guesses}")
+
+            if "_" not in display_word:
+                print("You Guessed The Word!!")
+                break
+
+            guess = input("Guess: ").lower()
+
+            # make sure guess is one letter and numbers/ input validation
+            if not guess.isalpha() or len(guess) != 1:
+                print("Invalid input. Please enter a single letter")
+                continue
+
+            # no repeats of letters
+            if guess in guessed_letters:
+                print("You already guessed that letter")
+                continue
+
+            guessed_letters.add(guess)
+
+            if guess in chosen_word:
+                print(f"Good guess {guess} is in the word")
             else:
-                display_word += "_"
+                print(f"Sorry, {guess} is not in the word")
+                incorrect_guesses += 1
 
-        print(hangman_drawing[incorrect_guesses])
-        print(f"Word: {display_word}")
-        print(f"Guessed Letters: {' '.join(sorted(list(guessed_letters)))}")
-        print(f"Attempts Remaining: {max_incorrect_guesses - incorrect_guesses}")
+        else:
+            print(hangman_drawing[incorrect_guesses])
+            print("GAME OVER")
+            print(f"The Word Was {chosen_word}")
 
-        if "_" not in display_word:
-            print("You Guessed The Word!!")
+        choice = input("Do you want to play again? (y/n): ").lower()
+        if choice == 'y':
+            continue
+        else:
             break
 
-        guess = input("Guess: ").lower()
-        
 
-
-        #make sure guess is one letter and numbers/ input validation
-        if not guess.isalpha() or len(guess) != 1:
-            print("Invalid input. Please enter a single letter")
-
-        #no repeats of letters
-        if guess in guessed_letters:
-            print("You already guessed that letter")
-            continue
-
-        guessed_letters.add(guess)
-
-        if guess in chosen_word:
-            print(f"Good guess {guess} is in the word")
-        else:
-            print(f"Sorry, {guess} is not in the word")
-            incorrect_guesses += 1
-
-    else:
-        print(hangman_drawing[incorrect_guesses])
-        print("GAME OVER")
-        print(f"The Word Was {chosen_word}")
-    
-    choice = input("Do you want to play again? (y/n): ").lower()
-    if choice == 'y':
-        continue
-    else:
-        break
+if __name__ == "__main__":
+    _cli_main()
         

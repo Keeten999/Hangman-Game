@@ -1,9 +1,5 @@
 
-"""Minimal Tkinter Hangman GUI.
 
-This keeps the UI tiny: a masked-word label, a single-letter entry, an inline
-status line, and a "Play again" button that appears after a win/lose.
-"""
 
 import tkinter as tk
 import random

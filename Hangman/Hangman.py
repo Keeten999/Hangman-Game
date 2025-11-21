@@ -34,7 +34,7 @@ words = load_words()
 
 
 
-def _cli_main():
+def main():
     win = 0
     played = 0
     while True:
@@ -171,5 +171,5 @@ def _cli_main():
 
 
 if __name__ == "__main__":
-    _cli_main()
+    main()
         

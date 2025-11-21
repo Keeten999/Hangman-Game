@@ -1,3 +1,7 @@
 # Hangman-Game
-This repository will use loops, ascii, and user input to simulate a game of hangman.
-Use input validation and input for length of the word
+This repository houses an Api and regular version of the classic hangman game.
+The game consists of 
+--getting a random word
+--displaying the game in the terminal
+--updating the display based on the inputed letter
+--give a percantage based win rate at the end
